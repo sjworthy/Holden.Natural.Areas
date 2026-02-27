@@ -47,3 +47,6 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+Raw.Data/USGS_13_n41w081_20230911.tif
+Raw.Data/USGS_13_n42w082_20230911.tif
+Raw.Data/USGS_13_n42w083_20230717.tif
