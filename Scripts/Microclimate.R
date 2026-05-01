@@ -46,6 +46,12 @@ plot(clim$macro_bio12, col = viridis::viridis_pal()(50), nrow = 1)
 plot(clim$macro_bio5, col = viridis::viridis_pal()(50), nrow = 1)
 plot(clim$macro_bio6, col = viridis::viridis_pal()(50), nrow = 1)
 
+terra::writeRaster(clim, 
+            filename = names(clim),
+            format = "GTiff", 
+            bylayer = TRUE,  # Ensures it's one file with 12 bands, not 12 files
+            overwrite = TRUE)
+
 # overlay the natural areas on the climate maps
 library(ggplot2)
 crs(natareas.trans)
