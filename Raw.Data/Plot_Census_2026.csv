@@ -1,0 +1,94 @@
+Plot,Date,Species,Tag,StemTag,DBH.cm,Code,Notes,StemID,ForestType,NaturalArea
+CW-MM,18-May,ACSA,1,1,24.3,L,,1_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,PRSE,2,1,43.8,N/A,,2_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACRU,3,1,26.6,L,,3_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,4,1,25.5,L,,4_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,5,1,1.86,N/A,,5_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,6,1,2.17,N/A,,6_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,7,1,11.2,L,Leaning Heavily,7_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,10,1,1.52,N/A,,10_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,LITU,8,1,77.3,N/A,,8_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,9,1,1.29,N/A,,9_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,12,1,21.4,N/A,,12_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,14,1,3.17,N/A,,14_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,13,1,5.9,L,,13_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,11,1,46,"I,M,A",split just above POM. Really wide mostly down trunk.  POM at 0.8m,11_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,LITU,15,1,52.3,N/A,,15_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,16,1,18.6,N/A,,16_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,LITU,17,1,35.4,N/A,,17_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,LITU,18,1,44.8,N/A,,18_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,18-May,ACSA,19,1,8,L,,19_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACRU,20,1,34.1,"A,X",POM at 1.45m,20_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,21,1,9.8,N/A,,21_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,SAAL,22,1,31.6,N/A,,22_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,23,1,12.6,N/A,,23_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,24,1,17.1,A,POM at 1.15m,24_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,LITU,25,1,60.2,M,tagged on N side,25_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,LITU,25,2,41.5,"M,L",,25_2,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,26,1,19,N/A,,26_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,27,1,23.9,L,large hole w/ swelling @ base,27_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,LITU,28,1,60.8,L,slight lean,28_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,LITU,29,1,52.2,N/A,large vine,29_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACRU,30,1,45,L,,30_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,31,1,1.6,N/A,,31_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,32,1,2,N/A,,32_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,33,1,15.6,L,slight lean,33_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,SAAL,34,1,36.2,N/A,,34_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,35,1,4.8,N/A,,35_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,36,1,3,"M,L",,36_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,36,2,1.8,"M,L",,36_2,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,37,1,2.5,N/A,,37_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,38,1,1.6,L,,38_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,39,1,1.5,"L,B",,39_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,40,1,1.3,L,,40_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,LITU,41,1,61.5,N/A,,41_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,42,1,12.7,"L,X",double lead that broke off,42_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,43,1,17.6,N/A,Knot,43_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,44,1,17.6,A,POM at 1.25,44_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACRU,45,1,33.1,N/A,,45_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACRU,46,1,9.5,L,soft measure used,46_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,LITU,47,1,61.8,L,slight lean,47_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,48,1,1.6,L,splits above POM,48_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,49,1,1.2,L,,49_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,50,1,1.5,N/A,,50_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,LITU,51,1,46,N/A,,51_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,PRSE,52,1,50.1,N/A,,52_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACRU,53,1,20.1,N/A,,53_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACRU,54,1,7,N/A,,54_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,55,1,2.3,L,,55_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,56,1,2.9,N/A,,56_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,57,1,1.8,L,,57_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,58,1,1.9,"L,B",,58_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,19-May,ACSA,59,1,1.9,L,,59_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,LITU,60,1,74.4,"M,L",Tagged,60_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,LITU,60,2,65.4,"M,L",,60_2,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,61,1,2,N/A,,61_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACRU,62,1,4,N/A,,62_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,63,1,2.9,N/A,,63_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,64,1,2.2,N/A,,64_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,65,1,17.7,L,,65_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,66,1,3.2,N/A,,66_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,67,1,7.4,N/A,,67_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,68,1,1.3,L,,68_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,69,1,12.4,"W, B",soft measure used,69_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,70,1,8.6,W,soft measure used ,70_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,71,1,10.7,N/A,,71_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,72,1,2.5,L,"upper half of stem is dead/dying, but still has leaves. ",72_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,73,1,2.7,W,soft measure used,73_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,74,1,3.4,W,soft measure used,74_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACRU,75,1,17,N/A,,75_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,SAAL,76,1,45.2,L,"leaning slightly, close to dead, neighbor is dead",76_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,77,1,2.3,L,,77_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACRU,78,1,14.6,"L,I",oddly shaped,78_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,79,1,2.9,W,soft measure used,79_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,80,1,1.6,L,,80_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,81,1,7.3,N/A,,81_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,82,1,22.2,L,,82_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,83,1,2.3,N/A,,83_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACRU,84,1,2.2,N/A,,84_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,85,1,4.3,N/A,tag will most likely fall,85_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,86,1,3.4,L,,86_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,20-May,ACSA,87,1,1.8,"B,L",,87_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,22-May,LITU,88,1,20.9,N/A,,88_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,22-May,LITU,89,1,70.7,N/A,,89_1,Mixed_Mesophytic,Corning_Woods
+CW-MM,22-May,MAAC,90,1,33,N/A,,90_1,Mixed_Mesophytic,Corning_Woods
