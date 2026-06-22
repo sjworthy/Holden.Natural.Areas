@@ -16,6 +16,9 @@ dat %>%
 # make sure species codes are entered consistently
 table(dat$Species)
 
+# get unique species names
+unique(dat$Species)
+
 # check if any value in any column is NA
 table(is.na(dat))
 
@@ -29,7 +32,7 @@ dat %>%
 
 # look to see if there is species-specific outlier detection
 trees.qaqc <- dat %>%
-  group_by(Species) %>%
+  group_by(Plot,Species) %>%
   mutate(
     mean.dbh = mean(DBH.cm, na.rm = TRUE),
     sd.dbh = sd(DBH.cm, na.rm = TRUE),
@@ -46,3 +49,8 @@ library(ggplot2)
 ggplot(dat, aes(x = Species, y = DBH.cm)) +
   geom_boxplot()+
   theme_classic(base_size = 15)
+
+ggplot(dat, aes(x = Species, y = DBH.cm)) +
+  geom_boxplot()+
+  theme_classic(base_size = 40)+
+  facet_wrap(~Plot)
