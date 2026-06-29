@@ -63,8 +63,10 @@ high.temp.plot = ggplot()+
   geom_sf(data = natareas.trans, fill = NA,
           color = "black", linewidth = 1)+
   scale_fill_viridis_c(option = "viridis",
-                       name = "High Temp (C)")+
-  ggtitle("Summer Max Temp (1979-2009)")
+                       name = "Temp (°C)")+
+  ggtitle("Average Summer Max Temp (1979-2009)")+
+  labs(y = "Latitude", x = "Longitude")+
+  theme_classic()
 high.temp.plot
 ggsave("./Maps/high.temp.png", plot = high.temp.plot,
        width = 8, height = 6, dpi =300)
@@ -75,8 +77,10 @@ low.temp.plot = ggplot()+
   geom_sf(data = natareas.trans, fill = NA,
           color = "black", linewidth = 1)+
   scale_fill_viridis_c(option = "viridis",
-                       name = "Low Temp (C)")+
-  ggtitle("Winter Min Temp (1979-2009)")
+                       name = "Temp (°C)")+
+  ggtitle("Average Winter Min Temp (1979-2009)")+
+  labs(y = "Latitude", x = "Longitude")+
+  theme_classic()
 low.temp.plot
 ggsave("./Maps/low.temp.png", plot = low.temp.plot,
        width = 8, height = 6, dpi =300)
@@ -87,8 +91,10 @@ moisture.plot = ggplot()+
   geom_sf(data = natareas.trans, fill = NA,
           color = "black", linewidth = 1)+
   scale_fill_viridis_c(option = "viridis",
-                       name = "Moisture(mm)")+
-  ggtitle("Annual Precipitation (1979-2009)")
+                       name = "Moisture (mm)")+
+  ggtitle("Average Annual Precipitation (1979-2009)")+
+  labs(y = "Latitude", x = "Longitude")+
+  theme_classic()
 moisture.plot
 ggsave("./Maps/moisture.png", plot = moisture.plot,
        width = 8, height = 6, dpi =300)
