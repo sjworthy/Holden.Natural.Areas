@@ -64,3 +64,4 @@ E = invsimp.div/sppr
 all.div = as.data.frame(cbind(row.names(CDM),sppr,shannon.div,simp.div,invsimp.div,J,E))
 colnames(all.div)[1] = "Site"
 
+write.csv(all.div, file = "all.div.csv")
