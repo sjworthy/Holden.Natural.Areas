@@ -12,22 +12,21 @@ library(vegan)
 # Community Data Matrix: plots are the rows and species are the columns
 # Each cell is how many individuals of that species are in that plot
 
+# fake data from vegan package if you want to play around with it. 
+data(BCI)
+
 # read in the community data matrix
-BCI = read.csv("cdm.csv", header = T, row.names = 1)
-
-# example data from package
-simp.div = diversity(cdm, index = "simpson")
-
+CDM = read.csv("cdm.csv", header = T, row.names = 1)
 
 # species richness: Number of species present in each plot
 # simplest metric used to represent diversity
-sppr = specnumber(BCI)
+sppr = specnumber(CDM)
 
 # finds frequencies of species (number of plots with species present)
-sppr.freq = specnumber(BCI, MARGIN = 2)
+sppr.freq = specnumber(CDM, MARGIN = 2)
 
 # percent of each species in each plot
-sp.percent = BCI / rowSums(BCI)*100
+sp.percent = CDM / rowSums(CDM)*100
   
 # Shannon or Shannon-Weaver or Shannon-Wiener diversity:
 # foundations in information theory
@@ -38,18 +37,18 @@ sp.percent = BCI / rowSums(BCI)*100
 # the identify of unknown individuals and there is less uncertainty in the system.
 # Metric is equally sensitive to rare and abundant species
 # Higher value = More diverse system
-shannon.div = diversity(BCI, index = "shannon")
+shannon.div = diversity(CDM, index = "shannon")
 
 # Simpson diversity:
 # Represents the probability that two randomly chosen individuals belong to different species
 # sensitive to abundant species
 # Higher value = More diverse system
-simp.div = diversity(BCI, index = "simpson")
+simp.div = diversity(CDM, index = "simpson")
 
 # Inverse Simpson:
 # sensitive to abundant species
 # Higher value = More diverse system
-invsimp.div = diversity(BCI, index = "invsimpson")
+invsimp.div = diversity(CDM, index = "invsimpson")
 
 
 # Pielou's evenness (J):
@@ -60,5 +59,8 @@ J = shannon.div/log(sppr)
 # that relatively equal numbers of individuals belong to each species.
 E = invsimp.div/sppr
 
+# combine all the metrics into one data frame and save
 
+all.div = as.data.frame(cbind(row.names(CDM),sppr,shannon.div,simp.div,invsimp.div,J,E))
+colnames(all.div)[1] = "Site"
 
