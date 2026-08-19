@@ -6,85 +6,124 @@
 
 
 library(tidyverse)
-install.packages("pak")
-pak::pak("ropensci/allodb")
+#install.packages("pak")
+#pak::pak("ropensci/allodb")
 library(allodb) # estimate above ground biomass
 # https://github.com/ropensci/allodb
 library(corrplot) # evaluate correlations
 library(performance) # test model assumptions
+library(lmerTest)
 
 #### Calculate Biomass ####
 
 # Prior to calculating tree biomass, users need to provide a table with 
 # DBH(cm), parsed species Latin names, and site(s) coordinates. 
-
-# example data with the package
-data("scbi_stem1")
-# make this dataframe and also include two other columns for plot name and forest type
-
-# to view the species with equations in the package
-data("sitespecies")
-
+dat = read.csv("Raw.Data/Plot_Census_2026.csv")
 
 # this function calculate biomass of each tree and adds a new column with the info
-scbi_stem1$agb =
+dat$agb =
   get_biomass(
-    dbh = scbi_stem1$dbh,
-    genus = scbi_stem1$genus,
-    species = scbi_stem1$species,
-    coords = c(-78.2, 38.9))
+    dbh = dat$DBH.cm,
+    genus = dat$Genus,
+    species = dat$Sp,
+    coords = c(-81.3, 41.6))
 
 # Will need to calculate ABG for each plot and then for each forest type
 
-# make a box and whisker plot showing ABG for each forest type
-# website with example and code: https://rpubs.com/an-bui/vegan-cheat-sheet
-# will need ABG for each plot as input.
+plot.agb = dat %>% 
+  group_by(Plot) %>% 
+  summarise(total.abg = sum(agb))
+
+plot.agb$ForestType = c("HH","OH","OH","MM","OH","MM","MM","BM","BM","HH","HH","BM")
+
+forest.type.agb = dat %>% 
+  group_by(ForestType) %>% 
+  summarise(total.abg = sum(agb))
+
+# mixed meso has highest above ground biomass
+
+ggplot(plot.agb, aes(y = total.abg, x = ForestType))+
+  geom_boxplot()
 
 #### Calculate Carbon Storage ####
 # multiply ABG by 0.5
-scbi_stem1$carbon_storage = scbi_stem1$agb*0.5
+dat$carbon_storage = dat$agb*0.5
 
-# do the same totaling of carbon storage as above and generate box and whisker plot
+plot.carbon = dat %>% 
+  group_by(Plot) %>% 
+  summarise(total.carbon.storage = sum(carbon_storage))
+
+plot.carbon$ForestType = c("HH","OH","OH","MM","OH","MM","MM","BM","BM","HH","HH","BM")
+
+forest.type.carbon = dat %>% 
+  group_by(ForestType) %>% 
+  summarise(total.carbon.storage = sum(carbon_storage))
+# mixed mesophytic highest stored carbon
+
+ggplot(plot.carbon, aes(y = total.carbon.storage, x = ForestType))+
+  geom_boxplot()
+
+# checking for total carbon differs between forest types
+
+carbon.forest.type.aov = aov(total.carbon.storage ~ ForestType, data = plot.carbon)
+summary(carbon.forest.type.aov) # nonsignificant
+
+all.carbon.plot = merge(plot.agb,plot.carbon)
+all.carbon.forest.type = merge(forest.type.agb,forest.type.carbon)
+
+write.csv(all.carbon.plot, file = "./Formatted.Data/all.carbon.plot.csv")
+write.csv(all.carbon.forest.type, file = "./Formatted.Data/all.carbon.forest.type.csv")
 
 #### Evaluate Relationships ####
 
-# read in diversity calculations
-div.dat = read.csv("div.dat.csv")
-
-# need to combine the div.dat and carbon storage dataframes together
-# Each row should be a plot
-# Columns should be the diveristy values, carbon storage, forest type
+# read in all data
+all.plot.final = read.csv("Formatted.Data/all.plot.final.csv")
+all.plot.final$ForestType = as.factor(all.plot.final$ForestType)
+all.forest.type.final = read.csv("Formatted.Data/all.forest.type.final.csv")
 
 # test for correlations among the diversity measures
-
-cor.div.dat = cor(div.dat[,c(4:12)],use = "pairwise") 
+cor.div.dat = cor(all.plot.final[,c(2:7)],use = "pairwise") 
 corrplot(cor.div.dat, method="number",tl.col = "black", bg = "gray70",is.corr = TRUE,
          col.lim = c(-1,1), col = COL2('BrBG', 200), addgrid.col = "black")
 
-# example from corrplot package
-data(mtcars)
-M = cor(mtcars)
-corrplot(M, method = 'number')
-
 # formerly test the significance of the correlation
-cor.test(mtcars$mpg,mtcars$cyl)
+cor.test(all.plot.final$shannon.div.plot,all.plot.final$E.plot)
+# not significantly correlated, p = 0.08
 
-# Is there a relationship between carbon storage and plot diversity?
-# What is your hypothesis based on the literature?
-
-rich.lm = lm(carbon_storage ~ sppr, data = all.data)
-summary(rich.lm)
-model_performance(rich.lm)
-
+# Is there a relationship between carbon storage and species diversity?
 
 # linear mixed effects model - accounts for plots being grouped into forest types
-rich.lmer = lmer(carbon_storage ~ sppr + (1|forest_type), data = all.data)
+rich.lmer = lmer(total.carbon.storage ~ sppr.plot + (1|ForestType), data = all.plot.final)
 summary(rich.lmer)
 model_performance(rich.lmer)
 
+rich.effects = allEffects(rich.lmer)
+rich.effects.2 = rich.effects$sppr.plot
 
+ggplot(all.plot.final, aes(y = total.carbon.storage, x = sppr.plot, color = ForestType))+
+  geom_point()+
+  geom_line(data = rich.effects.2, aes(x = sppr.plot, y = fit), inherit.aes = FALSE)+
+  geom_ribbon(data = rich.effects.2, aes(x = sppr.plot, ymin = lower, ymax = upper),
+              inherit.aes = FALSE, alpha = 0.2)+
+  theme_classic(base_size = 15)
 
+shannon.lmer = lmer(total.carbon.storage ~ shannon.div.plot + (1|ForestType), data = all.plot.final)
+summary(shannon.lmer)
+model_performance(shannon.lmer)
 
+simp.lmer = lmer(total.carbon.storage ~ simp.div.plot + (1|ForestType), data = all.plot.final)
+summary(simp.lmer)
+model_performance(simp.lmer)
 
+invsimp.lmer = lmer(total.carbon.storage ~ invsimp.div.plot + (1|ForestType), data = all.plot.final)
+summary(invsimp.lmer)
+model_performance(invsimp.lmer)
 
+J.lmer = lmer(total.carbon.storage ~ J.plot + (1|ForestType), data = all.plot.final)
+summary(J.lmer)
+model_performance(J.lmer)
+
+E.lmer = lmer(total.carbon.storage ~ E.plot + (1|ForestType), data = all.plot.final)
+summary(E.lmer)
+model_performance(E.lmer)
 

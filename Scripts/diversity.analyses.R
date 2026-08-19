@@ -16,17 +16,37 @@ library(vegan)
 data(BCI)
 
 # read in the community data matrix
-CDM = read.csv("cdm.csv", header = T, row.names = 1)
+# plots
+plot.cdm = read.csv("Formatted.Data/plot_cdm.csv", header = T, row.names = 1)
+
+# forest types
+forest.type.cdm = read.csv("Formatted.Data/forest_type_cdm.csv", header = T, row.names = 1)
+
+# interesting things
+# Oak-Hickory only type with Amelanchier arborea, Cornus florida (1), Quercus alba, Carya ovata
+# Beech-Maple only type with Juglans nigra (6 in one plot)
+# Hemlock-Hardwood only type with Aesculus glabra (2 in one plot), Betula alleghaniensis (1), Ulmus americana (6 in one plot)
+# Mixed-Meso only type with Fraxinus spp. (2, need to be IDed)
 
 # species richness: Number of species present in each plot
 # simplest metric used to represent diversity
-sppr = specnumber(CDM)
+sppr.plot = specnumber(plot.cdm)
+sppr.forest.type = specnumber(forest.type.cdm)
 
 # finds frequencies of species (number of plots with species present)
-sppr.freq = specnumber(CDM, MARGIN = 2)
+sppr.plot.freq = specnumber(plot.cdm, MARGIN = 2)
+sppr.plot.percent = sppr.plot.freq/12
+
+# Acer saccharum and Fagus grandifolia are the only species in all 12 plots
+
+sppr.forest.type.freq = specnumber(forest.type.cdm, MARGIN = 2)
+sppr.forest.type.percent = sppr.forest.type.freq/4
 
 # percent of each species in each plot
-sp.percent = CDM / rowSums(CDM)*100
+sp.percent.plot = plot.cdm/rowSums(plot.cdm)*100
+colMeans(sp.percent.plot)
+# Acer saccharum is on average 49% of all trees in a plot
+# Fagus grandifolia is on average 15% of all trees in a plot
   
 # Shannon or Shannon-Weaver or Shannon-Wiener diversity:
 # foundations in information theory
@@ -37,31 +57,45 @@ sp.percent = CDM / rowSums(CDM)*100
 # the identify of unknown individuals and there is less uncertainty in the system.
 # Metric is equally sensitive to rare and abundant species
 # Higher value = More diverse system
-shannon.div = diversity(CDM, index = "shannon")
+shannon.div.plot = diversity(plot.cdm, index = "shannon")
+shannon.div.forest.type = diversity(forest.type.cdm, index = "shannon")
+# Hemlock Hardwood highest diversity
 
 # Simpson diversity:
 # Represents the probability that two randomly chosen individuals belong to different species
 # sensitive to abundant species
 # Higher value = More diverse system
-simp.div = diversity(CDM, index = "simpson")
+simp.div.plot = diversity(plot.cdm, index = "simpson")
+simp.div.forest.type = diversity(forest.type.cdm, index = "simpson")
+# Hemlock Hardwood highest diversity
 
 # Inverse Simpson:
 # sensitive to abundant species
 # Higher value = More diverse system
-invsimp.div = diversity(CDM, index = "invsimpson")
-
+invsimp.div.plot = diversity(plot.cdm, index = "invsimpson")
+invsimp.div.forest.type = diversity(forest.type.cdm, index = "invsimpson")
+# Hemlock Hardwood highest diversity
 
 # Pielou's evenness (J):
-J = shannon.div/log(sppr)
+J.plot = shannon.div.plot/log(sppr.plot)
+J.forest.type = shannon.div.forest.type/log(sppr.forest.type)
+# Hemlock Hardwood highest evenness (1 plot less even)
 
 # Simpson's Evenness (E):
-# degree to which individuals are split among species with low values indicating
+# degree to which individuals are split among species with high values indicating
 # that relatively equal numbers of individuals belong to each species.
-E = invsimp.div/sppr
+E.plot = invsimp.div.plot/sppr.plot
+E.forest.type = invsimp.div.forest.type/sppr.forest.type
+# Hemlock Hardwood highest evenness, but mix of forest types with plots with highest evenness
 
 # combine all the metrics into one data frame and save
+all.div.plot = as.data.frame(cbind(sppr.plot,
+                                   shannon.div.plot,simp.div.plot,
+                                   invsimp.div.plot,J.plot,E.plot))
+all.div.forest.type = as.data.frame(cbind(sppr.forest.type,
+                                   shannon.div.forest.type,simp.div.forest.type,
+                                   invsimp.div.forest.type,J.forest.type,E.forest.type))
 
-all.div = as.data.frame(cbind(row.names(CDM),sppr,shannon.div,simp.div,invsimp.div,J,E))
-colnames(all.div)[1] = "Site"
+write.csv(all.div.plot, file = "./Formatted.Data/all.div.plot.csv")
+write.csv(all.div.forest.type, file = "./Formatted.Data/all.div.forest.type.csv")
 
-write.csv(all.div, file = "all.div.csv")

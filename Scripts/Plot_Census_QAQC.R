@@ -17,7 +17,7 @@ dat %>%
 table(dat$Species)
 
 # get unique species names
-unique(dat$Species)
+sort(unique(dat$Species))
 
 # check if any value in any column is NA
 table(is.na(dat))
@@ -25,6 +25,7 @@ table(is.na(dat))
 # check range of DBH
 # no value should be < 1
 range(dat$DBH.cm)
+# 1.0 to 134.8
 
 # check to see if two decimal places were entered, should only be 1
 dat %>%
@@ -43,8 +44,6 @@ table(trees.qaqc$flag.outlier)
 # flagging an ACSA much larger than mean for the species
 
 # Visualize DBH for species
-
-library(ggplot2)
 
 ggplot(dat, aes(x = Species, y = DBH.cm)) +
   geom_boxplot()+
