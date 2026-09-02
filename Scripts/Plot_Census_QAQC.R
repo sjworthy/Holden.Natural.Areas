@@ -41,10 +41,9 @@ trees.qaqc <- dat %>%
     flag.outlier = abs(z) > 3)
 
 table(trees.qaqc$flag.outlier)
-# flagging an ACSA much larger than mean for the species
+# flagging a lot of larger ACESAC
 
 # Visualize DBH for species
-
 ggplot(dat, aes(x = Species, y = DBH.cm)) +
   geom_boxplot()+
   theme_classic(base_size = 15)
