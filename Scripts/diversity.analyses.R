@@ -99,3 +99,35 @@ all.div.forest.type = as.data.frame(cbind(sppr.forest.type,
 write.csv(all.div.plot, file = "./Formatted.Data/all.div.plot.csv")
 write.csv(all.div.forest.type, file = "./Formatted.Data/all.div.forest.type.csv")
 
+#Coefficient of Variation
+
+#Paper for this: https://holdenarb.sharepoint.com/sites/research2/worthylab/Shared%20Documents/Literature/Carbon_Storage/fpls-14-1120050.pdf?CT=1791290555156&OR=ItemsView&wdwpf=doclib-c   
+
+#Equation 5 CV = 100 * (SD/Mean)
+
+#Steps for this project. Find the standard deviation and mean of DBH by plot. Then I can work out the cv function.
+
+plot_data <- read.csv("Plot_Census_2026 - Sheet1.csv")
+
+#This is where I ended. I'm trying to figure out how to make the code below only work for the DBH.cm column rather than all the numeric columns. 
+
+# Calculate both Mean and SD for all numeric columns by group
+plots_cv <- plot_data %>%
+  group_by(Plot) %>%
+  summarise(
+      where(DBH.cm), 
+      list(mean = ~mean(.x, na.rm = TRUE), sd = ~sd(.x, na.rm = TRUE)) +
+    .groups = "drop"
+  )
+library(dplyr)
+
+# Calculate both Mean and SD for all numeric columns by group
+plots_cv <- plot_data %>%
+  group_by(Plot) %>%
+  summarise(
+    across(
+      where(is.numeric), 
+      list(mean = ~mean(.x, na.rm = TRUE), sd = ~sd(.x, na.rm = TRUE))
+    ), 
+    .groups = "drop"
+  )
