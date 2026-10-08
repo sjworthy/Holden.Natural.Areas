@@ -22,7 +22,7 @@ Quercus2 <- Quercus2 %>% mutate(
   Log_DBH2 = log(as.numeric(DBH_2026_cm)), 
   Log_DBH1 = log(as.numeric(DBH_Old_cm)))
 
-#I'm not sure why this isn't working. I've messed around with it a couple different ways, but it doesn't want to work any way I try. Mostly, it tells me that there are non-numeric operators in it, but using the function as.numeric() worked above, so why not here?
+#I'm not sure why this isn't working. I've tried a couple of different ways, but it still won't work. Mostly, it says there are non-numeric operators, but using as.numeric() worked above, so why not here?
 rgr <- (log(as.numeric(DBH_2026_cm))-log(as.numeric(DBH_OLD_cm)))/CiT
 
 #I made a separate column for the relative growth rate (RGR). This one worked for some reason even though the line above didn't work. But hey, we got there. 
@@ -30,3 +30,19 @@ Quercus2 <- Quercus2 %>% mutate( RGR = (Log_DBH2 - Log_DBH1)/ as.numeric(CiT))
 
 #Exporting my data.
 write_csv(Quercus2, "Quercus_Data_RGR.csv")
+
+#Making a "clean" data set for the graph. I'm removing the negative values and the NAs to get rid of warnings.
+Quercus_clean <- Quercus2 %>% filter(RGR > 0)
+  
+
+#Making the graphs for both within range and out of range.
+Quercus_clean %>% ggplot(mapping = aes(x = Wtihin_Range, y = RGR, fill = Wtihin_Range)) +
+  geom_boxplot() + 
+  scale_fill_brewer(palette = "Set1") +
+  ggtitle("Relative Growth Rates of Quercus Collection") +
+  xlab("Holden in Natural Range?") +
+  ylab("Relative Growth Rate") +
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.x = element_text(size = 16),
+        axis.title.y = element_text(size = 16))
