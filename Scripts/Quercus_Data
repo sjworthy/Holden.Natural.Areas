@@ -14,7 +14,7 @@ Quercus %>% mutate(DBH_Old_cm = as.numeric(DBH_Old_cm),
 summary(Quercus)
 
 #Making myself a second table with less stuff in it.
-Quercus2 <- Quercus %>% select(c(ACC_NUM_AND_QUAL, FAMILY, NAME, RANGE, CONT_REG, MEASURE_DT_OLD, MEASURE_DT_2026, DBH_Old_cm, DBH_2026_cm, Growth_cm, Wtihin_Range, CiT))
+Quercus2 <- Quercus %>% select(c(ACC_NUM_AND_QUAL, FAMILY, NAME, PROV_TYPE, RANGE, CONT_REG, MEASURE_DT_OLD, MEASURE_DT_2026, DBH_Old_cm, DBH_2026_cm, Growth_cm, Wtihin_Range, CiT))
 view(Quercus2)
 
 #Making new columns of the log of each DBH measurement. For some reason, this one works, but not when I try to make an object below.
@@ -31,9 +31,22 @@ Quercus2 <- Quercus2 %>% mutate( RGR = (Log_DBH2 - Log_DBH1)/ as.numeric(CiT))
 #Exporting my data.
 write_csv(Quercus2, "Quercus_Data_RGR.csv")
 
-#Making a "clean" data set for the graph. I'm removing the negative values and the NAs to get rid of warnings.
+#Making a "clean" data set for the graph. I'm removing the negative values and the NAs to get rid of warnings. I thought it made the graph a little more realistic since no tree truly ever shrunk.
 Quercus_clean <- Quercus2 %>% filter(RGR > 0)
-  
+
+#Making a graph showing the RGR of quercus by prov type. According to the data, W is wild origin, G is garden origin, Z is indirect wild origin, and U isn't specified, but I'm guessing it's unknown.
+Quercus_clean %>% ggplot(mapping = aes(x = PROV_TYPE, y = RGR, fill = PROV_TYPE)) +
+  geom_boxplot() + 
+  scale_fill_brewer(palette = "Set2") +
+  ggtitle("RGR of Quercus Collection by Origin") +
+  xlab("Prov Type") +
+  ylab("Relative Growth Rate") +
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.x = element_text(size = 16),
+        axis.title.y = element_text(size = 16),
+        legend.title = element_blank(),
+        title = element_text(size = 18))
 
 #Making the graphs for both within range and out of range.
 Quercus_clean %>% ggplot(mapping = aes(x = Wtihin_Range, y = RGR, fill = Wtihin_Range)) +
@@ -46,3 +59,20 @@ Quercus_clean %>% ggplot(mapping = aes(x = Wtihin_Range, y = RGR, fill = Wtihin_
         axis.text.y = element_text(size = 12),
         axis.title.x = element_text(size = 16),
         axis.title.y = element_text(size = 16))
+
+#Cleaning out the NAs in the Continent column so I can plot the Quercuses by continent.
+Quercus_cont_clean <- Quercus_clean %>% filter(CONT_REG != "N/A")
+
+#Plotting the RGR by the different continents they come from (NAM, EUR, ASI, EUA, MED, NTE, EUR:AFR)
+Quercus_cont_clean %>% ggplot(mapping = aes(x = CONT_REG, y = RGR, fill = CONT_REG)) +
+  geom_boxplot() + 
+  scale_fill_brewer(palette = "Set2") +
+  ggtitle("RGR of Quercus Collection by Continent(s)") +
+  xlab("Continent of Origin") +
+  ylab("Relative Growth Rate") +
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.x = element_text(size = 16),
+        axis.title.y = element_text(size = 16),
+        legend.title = element_blank(),
+        title = element_text(size = 18)) 
