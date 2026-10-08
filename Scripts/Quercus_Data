@@ -1,0 +1,32 @@
+#Quercus Data Analysis
+#First, I'm importing the Quercus data
+Quercus <- read_csv("Quercus_Collection_Data_Entry(THA).csv")
+view(Quercus)
+
+#I was trying to make it so the columns change to the class they are supposed to be, but it wouldn't let me do that because of NAs.
+Quercus %>% mutate(DBH_Old_cm = as.numeric(DBH_Old_cm),
+                   DBH_Old_in = as.numeric(DBH_Old_in),
+                   DBH_2026_cm = as.numeric(DBH_2026_cm),
+                   DBH_2026_in = as.numeric(DBH_2026_in),
+                   MEASURE_DT_OLD = as.Date(MEASURE_DT_OLD, format = "%d-%m-%Y"),
+                   MEASURE_DT_2026 = as.Date(MEASURE_DT_2026, format = "%d-%m-%Y"),
+                   CiT = as.numeric(CiT))
+summary(Quercus)
+
+#Making myself a second table with less stuff in it.
+Quercus2 <- Quercus %>% select(c(ACC_NUM_AND_QUAL, FAMILY, NAME, RANGE, CONT_REG, MEASURE_DT_OLD, MEASURE_DT_2026, DBH_Old_cm, DBH_2026_cm, Growth_cm, Wtihin_Range, CiT))
+view(Quercus2)
+
+#Making new columns of the log of each DBH measurement. For some reason, this one works, but not when I try to make an object below.
+Quercus2 <- Quercus2 %>% mutate(
+  Log_DBH2 = log(as.numeric(DBH_2026_cm)), 
+  Log_DBH1 = log(as.numeric(DBH_Old_cm)))
+
+#I'm not sure why this isn't working. I've messed around with it a couple different ways, but it doesn't want to work any way I try. Mostly, it tells me that there are non-numeric operators in it, but using the function as.numeric() worked above, so why not here?
+rgr <- (log(as.numeric(DBH_2026_cm))-log(as.numeric(DBH_OLD_cm)))/CiT
+
+#I made a separate column for the relative growth rate (RGR). This one worked for some reason even though the line above didn't work. But hey, we got there. 
+Quercus2 <- Quercus2 %>% mutate( RGR = (Log_DBH2 - Log_DBH1)/ as.numeric(CiT))
+
+#Exporting my data.
+write_csv(Quercus2, "Quercus_Data_RGR.csv")
