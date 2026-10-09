@@ -109,19 +109,7 @@ write.csv(all.div.forest.type, file = "./Formatted.Data/all.div.forest.type.csv"
 
 plot_data <- read.csv("Plot_Census_2026 - Sheet1.csv")
 
-#This is where I ended. I'm trying to figure out how to make the code below only work for the DBH.cm column rather than all the numeric columns. 
-
-# Calculate both Mean and SD for all numeric columns by group
-plots_cv <- plot_data %>%
-  group_by(Plot) %>%
-  summarise(
-      where(DBH.cm), 
-      list(mean = ~mean(.x, na.rm = TRUE), sd = ~sd(.x, na.rm = TRUE)) +
-    .groups = "drop"
-  )
-library(dplyr)
-
-# Calculate both Mean and SD for all numeric columns by group
+# Calculate both Mean and SD for all numeric columns by group. This code didn't work as intended. It created columns for the mean and sd of the DBH, the tag number, and stem tag number. I couldn't figure out how to issolate the DBH.
 plots_cv <- plot_data %>%
   group_by(Plot) %>%
   summarise(
@@ -131,3 +119,12 @@ plots_cv <- plot_data %>%
     ), 
     .groups = "drop"
   )
+
+#Adding the row for coefficient of variance and calculating it. I believe this is the same as what it has above.
+plots_cv <- plots_cv %>% mutate(cv = 100 * (DBH.cm_sd/DBH.cm_mean))
+
+#Because I wanted to get it done and couldn't figure out how to alter the code above to make it not include tag and stem tag, I just removed them manually.
+plots_cv <- plots_cv %>% select(c(Plot, DBH.cm_mean, DBH.cm_sd, cv))
+
+#Exporting the table as a CSV.
+write_csv(plots_cv, "Plots_2026_CV.csv")
